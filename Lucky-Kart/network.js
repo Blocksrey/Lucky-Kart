@@ -7,7 +7,8 @@ export function newNetwork(port) {
 	network.close = newSignal()
 	network.error = newSignal()
 
-	let socket = new WebSocket('wss://home.pyusoft.com:' + port)
+	//let socket = new WebSocket('wss://home.blocksrey.com:' + port)
+	let socket = new WebSocket('wss://localhost:' + port)
 
 	socket.onopen = network.open.fire
 	socket.onclose = network.close.fire

@@ -44,9 +44,10 @@ varying vec2 vCoord;
 varying vec3 vNormal;
 
 void main() {
-	float b = dot(vNormal, normalize(vec3(-3, 1, -2)));
-	gl_FragColor = vec4(b, b, b, 1);
+	//float b = dot(vNormal, normalize(vec3(-3, 1, -2)));
+	//gl_FragColor = vec4(b, b, b, 1);
 	//gl_FragColor = vec4(vCoord.x, vCoord.y, 0, 1);
+	gl_FragColor = vec4(1, 1, 1, 1);
 }
 `
 
@@ -98,6 +99,7 @@ let main = ([file]) => {
 	gl.vertexAttribPointer(coordL, 2, gl.FLOAT, false, 0, 0)
 	*/
 
+	/*
 	let normalB = gl.createBuffer()
 	gl.bindBuffer(gl.ARRAY_BUFFER, normalB)
 
@@ -110,6 +112,7 @@ let main = ([file]) => {
 		console.log('failed to get storage location of attribute')
 
 	gl.vertexAttribPointer(normalL, 3, gl.FLOAT, false, 0, 0)
+	*/
 
 
 
@@ -199,7 +202,7 @@ let main = ([file]) => {
 
 		let frusT =
 			Mat4.perspective()
-			.mul(Mat4.translation(0, 0, -7 + Math.cos(0.001*performance.now())))
+			.mul(Mat4.translation(0, -5, -7 + Math.cos(0.001*performance.now())))
 			.mul(Mat4.rotate_y(0.0003*performance.now()))
 
 		gl.uniformMatrix4fv(frusTL, false, frusT.dumpT())
@@ -247,6 +250,6 @@ let main = ([file]) => {
 }
 
 network.open.connect(function() {
-	network.send(['fetch', 'cube_bad.obj'])
+	network.send(['fetch', 'mario.obj'])
 	network.receive('fetch').connect(main)
 })

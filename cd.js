@@ -20,7 +20,7 @@ export function initClientDistributor(port) {
 			if (request.url == '/')
 				request.url += 'index.html'
 
-			request.url = '/Lucky_Kart' + request.url
+			request.url = '/Lucky-Kart' + request.url
 
 			console.log(request.url)
 

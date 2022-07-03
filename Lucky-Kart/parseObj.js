@@ -1,41 +1,43 @@
-var pre, out, hash = {}
+'use strict'
 
-hash['#'] = () => {}
-hash[''] = () => {}
+let pre, out, def = {}
 
-hash.mtllib = () => {}
-hash.usemtl = () => {}
+def['#'] = () => {}
+def['']  = () => {}
 
-hash.o = () => {}
-hash.s = () => {}
+def.mtllib = () => {}
+def.usemtl = () => {}
 
-hash.v  = chunk => pre[0].push(chunk)
-hash.vt = chunk => pre[1].push(chunk)
-hash.vn = chunk => pre[2].push(chunk)
+def.o = () => {}
+def.s = () => {}
 
-hash.f = chunk => {
-	for (var i in chunk) {
-		var args = chunk[i].split('/')
-		for (var j in args)
-			for (var k in pre[j][args[j] - 1])
+def.v  = chunk => pre[0].push(chunk)
+def.vt = chunk => pre[1].push(chunk)
+def.vn = chunk => pre[2].push(chunk)
+
+def.f = chunk => {
+	for (let i in chunk) {
+		let args = chunk[i].split('/')
+		for (let j in args)
+			for (let k in pre[j][args[j] - 1])
 				out[j].push(+pre[j][args[j] - 1][k])
 	}
 }
 
 export function parseObj(source) {
-	var time0 = performance.now()
+	let t0 = performance.now()
 
 	pre = [[], [], []]
 	out = [[], [], []]
 
-	var lines = source.split('\n')
-	for (var i in lines) {
-		var args = lines[i].split(' ')
-		hash[args[0]](args.splice(1))
+	let lines = source.split('\n')
+	for (let i in lines) {
+		let args = lines[i].split(' ')
+		def[args[0]](args.splice(1))
 	}
 
-	var time1 = performance.now()
-	console.log(time1 - time0)
+	let t1 = performance.now()
+	console.log(t1 - t0)
 
 	return out
 }
